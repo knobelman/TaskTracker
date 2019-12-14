@@ -1,0 +1,23 @@
+<div class="line d-flex flex-row" [ngClass]="{'done':lineData.done}">
+    <button mat-icon-button (click)="showThisAsMain()">
+        <mat-icon [inline]=true>info</mat-icon>
+    </button>
+    <button mat-icon-button (click)="childView()">
+        <mat-icon *ngIf="showChildren && this.lineData.$children.length > 0" [inline]=true>expand_more</mat-icon>
+        <mat-icon *ngIf="!showChildren && this.lineData.$children.length > 0" [inline]=true>chevron_right</mat-icon>
+        <mat-icon *ngIf="this.lineData.$children.length == 0" [inline]=true>last_page</mat-icon>
+    </button>
+    <input class="input" [ngClass]="{'line-done':lineData.done}" type='string' #title [value]='lineData.title'
+        (keyup)='lineData.title=title.value' (keyup.shift.arrowleft)="shftLeft($event)"
+        (keyup.shift.arrowright)="shftRight($event)" (keyup.shift.arrowup)="shftUp($event)"
+        (keyup.shift.arrowdown)="shftDown($event)" (keyup.enter)="enter($event)" (keyup.backspace)="backspace($event)"
+        (keyup.alt.arrowright)="subtitleView($event)" (keyup.alt.arrowdown)="childView($event)"
+        (keyup.control.alt.d)="done($event)">
+</div>
+<input id="subtitle" [hidden]="!showSubtitle" type='string' #subtitle [value]='lineData.subtitle'
+    (keyup)='lineData.subtitle=subtitle.value'>
+<div *ngIf="showChildren">
+    <ul *ngFor="let child of lineData.children">
+        <app-line-view [lineData]=child [showChildren]=false (showAsMain)="showLineAsMain($event)"></app-line-view>
+    </ul>
+</div>

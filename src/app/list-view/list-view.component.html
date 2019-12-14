@@ -1,0 +1,20 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="background-color: white;">
+        <li class="breadcrumb-item" aria-current="page" *ngFor='let breadCrumb of breadCrumbs'><a href='#'
+                (click)='showLineAsMain(breadCrumb)'>{{breadCrumb.title}}</a></li>
+    </ol>
+</nav>
+
+<!-- <div [hidden]="dataToShow.title=='root'">{{dataToShow.title}}</div> -->
+<div (keyup)=saveData()>
+    <input id="mainTitle" [hidden]="dataToShow.title=='root'" [ngClass]="{'done':dataToShow.done}" type='string' #mainTitle
+        [value]='dataToShow.title' (keyup)='dataToShow.title=mainTitle.value' (keyup.control.alt.d)="done($event)">
+    <ul id="mainTitleSons" *ngFor="let topLine of dataToShow.children">
+        <app-line-view [lineData]=topLine [showChildren]=true (showAsMain)="showLineAsMain($event)"></app-line-view>
+    </ul>
+    <ul>
+        <button mat-icon-button (click)="newTask()">
+            <mat-icon>add_circle</mat-icon>
+        </button>
+    </ul>
+</div>
