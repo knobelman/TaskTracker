@@ -6,7 +6,7 @@
 </nav>
 
 <!-- <div [hidden]="dataToShow.title=='root'">{{dataToShow.title}}</div> -->
-<div (keyup)=saveData()>
+<div (keyup)="saveData()" (keyup.alt.arrowleft)="exitTask($event)">
     <input id="mainTitle" [hidden]="dataToShow.title=='root'" [ngClass]="{'done':dataToShow.done}" type='string' #mainTitle
         [value]='dataToShow.title' (keyup)='dataToShow.title=mainTitle.value' (keyup.control.alt.d)="done($event)">
     <ul id="mainTitleSons" *ngFor="let topLine of dataToShow.children">

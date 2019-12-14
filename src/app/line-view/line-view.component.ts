@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, ViewChild, ElementRef, ɵConsole } from '@angular/core';
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Line } from '../Objects/line';
 
@@ -79,6 +79,14 @@ export class LineViewComponent implements OnInit {
   done(event) {
     // this.lineData.$done = !this.lineData.$done
     this.lineData.changeDone();
+  }
+
+  enterTask(event) {
+    this.showThisAsMain();
+  }
+
+  exitTask(event) {
+    
   }
 
   showThisAsMain() {

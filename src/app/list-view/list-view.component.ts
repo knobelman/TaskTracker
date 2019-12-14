@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { Line } from '../Objects/line';
+import { LineViewComponent } from '../line-view/line-view.component';
 
 @Component({
   selector: 'app-list-view',
@@ -55,16 +56,12 @@ export class ListViewComponent implements OnInit {
     root.$title = 'rootsParent';
     if (localStorage.getItem('taskList'))
       this.data = new Line().deserialize(JSON.parse(localStorage.getItem('taskList')), root);
-    else{
-      this.data = new Line().deserialize(this.jsonData,root);
+    else {
+      this.data = new Line().deserialize(this.jsonData, root);
       this.saveData();
     }
     this.dataToShow = this.data;
-    // console.log(dataForLocalStorage)
-    // localStorage.setItem('taskList', JSON.stringify(this.data));
     this.setBreadCrumbs();
-    // var tmp = new Line().deserialize(JSON.parse(localStorage.getItem('taskList')), root);
-    // console.log(tmp);
   }
 
   newTask() {
@@ -88,6 +85,14 @@ export class ListViewComponent implements OnInit {
 
   saveData() {
     localStorage.setItem('taskList', JSON.stringify(this.data));
+  }
+
+  exitTask(event) {
+    if (this.dataToShow.$title !== 'root') {
+      this.breadCrumbs.pop();
+      this.dataToShow = this.breadCrumbs.pop();
+      this.setBreadCrumbs();
+    }
   }
 
   done() {

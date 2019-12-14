@@ -100,8 +100,8 @@ export class Line {
     }
 
     toJSON() {
-        return {title: this.title, subtitle: this.subtitle, children: this.children, done: this.done};
-      }
+        return { title: this.title, subtitle: this.subtitle, children: this.children, done: this.done };
+    }
 
     copy(line: Line): this {
         return Object.assign(this, line);

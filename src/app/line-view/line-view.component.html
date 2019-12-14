@@ -8,11 +8,11 @@
         <mat-icon *ngIf="this.lineData.$children.length == 0" [inline]=true>last_page</mat-icon>
     </button>
     <input class="input" [ngClass]="{'line-done':lineData.done}" type='string' #title [value]='lineData.title'
-        (keyup)='lineData.title=title.value' (keyup.shift.arrowleft)="shftLeft($event)"
-        (keyup.shift.arrowright)="shftRight($event)" (keyup.shift.arrowup)="shftUp($event)"
-        (keyup.shift.arrowdown)="shftDown($event)" (keyup.enter)="enter($event)" (keyup.backspace)="backspace($event)"
-        (keyup.alt.arrowright)="subtitleView($event)" (keyup.alt.arrowdown)="childView($event)"
-        (keyup.control.alt.d)="done($event)">
+        (keyup)='lineData.title=title.value' (keyup.shift.alt.arrowleft)="shftLeft($event)"
+        (keyup.shift.alt.arrowright)="shftRight($event)" (keyup.shift.alt.arrowup)="shftUp($event)"
+        (keyup.shift.alt.arrowdown)="shftDown($event)" (keyup.enter)="enter($event)" (keyup.control.backspace)="backspace($event)"
+        (keyup.control.enter)="subtitleView($event)" (keyup.alt.arrowdown)="childView($event)"
+        (keyup.control.alt.d)="done($event)" (keyup.alt.arrowright)="enterTask($event)">
 </div>
 <input id="subtitle" [hidden]="!showSubtitle" type='string' #subtitle [value]='lineData.subtitle'
     (keyup)='lineData.subtitle=subtitle.value'>
