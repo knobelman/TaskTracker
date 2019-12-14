@@ -11,7 +11,7 @@ export class ListViewComponent implements OnInit {
   data: Line;
   dataToShow: Line;
   jsonData = {
-    title: 'root', subtitle: '', children: [], parent: undefined
+    title: 'root', subtitle: '', children: [], parent: undefined, done: false
   };
   /*
         {
@@ -53,8 +53,12 @@ export class ListViewComponent implements OnInit {
   ngOnInit() {
     var root: Line = new Line();
     root.$title = 'rootsParent';
-    // this.data = new Line().deserialize(this.jsonData, root);
-    this.data = new Line().deserialize(JSON.parse(localStorage.getItem('taskList')), root);
+    if (localStorage.getItem('taskList'))
+      this.data = new Line().deserialize(JSON.parse(localStorage.getItem('taskList')), root);
+    else{
+      this.data = new Line().deserialize(this.jsonData,root);
+      this.saveData();
+    }
     this.dataToShow = this.data;
     // console.log(dataForLocalStorage)
     // localStorage.setItem('taskList', JSON.stringify(this.data));
@@ -83,7 +87,6 @@ export class ListViewComponent implements OnInit {
   }
 
   saveData() {
-    console.log("Saved");
     localStorage.setItem('taskList', JSON.stringify(this.data));
   }
 
